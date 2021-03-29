@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+	id "com.github.spotbugs" version "4.7.0"
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+  intermediates {
+      java {
+          srcDir 'intermediates/javac/release/compileReleaseJavaWithJavac/classes'
+      }
+  }
+}
+
+configurations {
+    intermediates.extendsFrom testCompile
+    intermediates.extendsFrom testRuntime
+}
+
+spotbugsIntermediates {
+    reports {
+        xml {
+            enabled = true
+            destination = file("$project.buildDir/reports/spotbugs/spotbugs-algorithms.xml")
+        }
+    }
+}
